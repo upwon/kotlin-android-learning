@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   },
   description: "为 Java Android 开发者设计的完整 Kotlin、协程与 Flow 学习路径。",
   keywords: ["Kotlin", "Android", "Java", "协程", "Flow", "学习教程"],
-  other: { "codex-preview": "development" },
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };
 
@@ -54,4 +53,3 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
-
