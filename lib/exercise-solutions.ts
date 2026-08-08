@@ -1,4 +1,6 @@
-type ExerciseSolution = {
+import { modernAndroidExerciseSolutions } from "./exercise-solutions-modern-android";
+
+export type ExerciseSolution = {
   solution: string;
   solutionExplanation: string;
   solutionChecks: string[];
@@ -10,6 +12,7 @@ type ExerciseSolution = {
 };
 
 export const exerciseSolutions: Record<string, ExerciseSolution> = {
+  ...modernAndroidExerciseSolutions,
   "meet-kotlin": {
     solution: `// 顶层函数不需要再放进 UserUtils 类
 fun userLabel(id: Long) = "user-$id"
