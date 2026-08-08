@@ -12,6 +12,14 @@ const cards = [
   { title: "作用域函数", tag: "惯用法", code: "val intent = Intent(context, DetailActivity::class.java)\n    .apply { putExtra(EXTRA_ID, id) }\n\nuser?.let { render(it) }", note: "apply 返回接收者；let 返回 Lambda 结果。" },
   { title: "协程切换上下文", tag: "协程", code: "viewModelScope.launch {\n    val data = withContext(Dispatchers.IO) {\n        repository.load()\n    }\n    render(data)\n}", note: "suspend 不等于后台线程，Dispatcher 才决定执行环境。" },
   { title: "StateFlow 更新", tag: "Flow", code: "private val _state = MutableStateFlow(UiState())\nval state = _state.asStateFlow()\n\n_state.update { it.copy(loading = true) }", note: "对外暴露只读 StateFlow，在 ViewModel 内集中修改。" },
+  { title: "生命周期安全收集", tag: "Android", code: "val state by viewModel.uiState\n    .collectAsStateWithLifecycle()", note: "Compose 页面低于 STARTED 时停止收集，恢复后读取 StateFlow 最新值。" },
+  { title: "Room 唯一事实源", tag: "Jetpack", code: "fun observe(id: Long): Flow<User?> =\n    dao.observe(id).map { it?.toDomain() }\n\nsuspend fun refresh(id: Long) {\n    dao.upsert(api.user(id).toEntity())\n}", note: "网络只负责刷新数据库，UI 始终观察 Room，离线时仍有同一条数据链。" },
+  { title: "WorkManager 唯一任务", tag: "Jetpack", code: "workManager.enqueueUniqueWork(\n    \"sync-$userId\",\n    ExistingWorkPolicy.KEEP,\n    request,\n)", note: "适合必须完成的持久任务；配合联网约束、幂等键与退避。" },
+  { title: "Compose 状态提升", tag: "Compose", code: "@Composable\nfun SearchBar(\n    query: String,\n    onQueryChange: (String) -> Unit,\n) {\n    TextField(query, onQueryChange)\n}", note: "无状态组件只接收值与事件，业务状态交给 ViewModel 或上层状态持有者。" },
+  { title: "Effect 与 key", tag: "Compose", code: "LaunchedEffect(userId) {\n    repository.observe(userId).collect(::render)\n}", note: "userId 改变时取消旧任务并启动新任务；离开 Composition 时自动取消。" },
+  { title: "LazyColumn 稳定 key", tag: "Compose", code: "items(\n    items = users,\n    key = User::id,\n) { user ->\n    UserRow(user)\n}", note: "稳定 key 让插入、排序后仍能保持项目身份和局部状态。" },
+  { title: "Paging 跨旋转", tag: "Paging", code: "val users = query\n    .flatMapLatest(repository::search)\n    .cachedIn(viewModelScope)", note: "cachedIn 保留 ViewModel 生命周期内的分页代；磁盘缓存由 Room 负责。" },
+  { title: "Hilt ViewModel", tag: "Hilt", code: "@HiltViewModel\nclass UserViewModel @Inject constructor(\n    repository: UserRepository,\n    savedStateHandle: SavedStateHandle,\n) : ViewModel()", note: "ViewModel 不是单例；Hilt 同时注入业务依赖和可恢复导航参数。" },
 ];
 
 export default function ReferencePage() {
