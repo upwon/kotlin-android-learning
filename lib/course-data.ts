@@ -36,6 +36,12 @@ export type Chapter = {
     hint: string;
     solution?: string;
     solutionExplanation?: string;
+    solutionChecks?: string[];
+    solutionRoles?: {
+      component: string;
+      responsibility: string;
+      boundary: string;
+    }[];
   };
 };
 
