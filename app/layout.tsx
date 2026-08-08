@@ -13,8 +13,9 @@ export const metadata: Metadata = {
     default: "Kotlin Android 学习站",
     template: "%s · Kotlin Android 学习站",
   },
-  description: "为 Java Android 开发者设计的完整 Kotlin、协程与 Flow 学习路径。",
+  description: "为 Java Android 开发者设计的完整 Kotlin、协程、Flow、Jetpack 与 Compose 学习路径。",
   keywords: ["Kotlin", "Android", "Java", "协程", "Flow", "学习教程"],
+  other: { "codex-preview": "development" },
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };
 
@@ -38,7 +39,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <div className="footer-inner">
               <div>
                 <span className="brand-mark small" aria-hidden="true">K</span>
-                <p>从 Java Android 出发，系统掌握 Kotlin、协程与 Flow。</p>
+                <p>从 Java Android 出发，系统掌握 Kotlin、协程、Flow、Jetpack 与 Compose。</p>
               </div>
               <nav aria-label="页脚导航">
                 <Link href="/course">课程地图</Link>
