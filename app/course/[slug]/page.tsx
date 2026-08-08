@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { allChapters, courseUnits, getAdjacentChapters, getChapter } from "@/lib/course-data";
 import { ChapterCompleteButton } from "@/app/_components/progress-widgets";
 import { CodeBlock, CodeComparison } from "@/app/_components/code-block";
+import { DefaultClosedDetails } from "@/app/_components/default-closed-details";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -82,9 +83,9 @@ export default async function ChapterPage({ params }: Props) {
             <h2>{item.exercise.title}</h2>
             <p>{item.exercise.prompt}</p>
             {item.exercise.starter && <CodeBlock code={item.exercise.starter} label="待改写代码" comment="先独立完成，再展开下方参考答案" />}
-            <details className="exercise-hint"><summary>查看提示</summary><p>{item.exercise.hint}</p></details>
+            <DefaultClosedDetails className="exercise-hint"><summary>查看提示</summary><p>{item.exercise.hint}</p></DefaultClosedDetails>
             {item.exercise.solution && (
-              <details className="exercise-answer">
+              <DefaultClosedDetails className="exercise-answer">
                 <summary>查看参考答案</summary>
                 {item.exercise.solutionExplanation && <p>{item.exercise.solutionExplanation}</p>}
                 {item.exercise.solutionRoles && (
@@ -109,7 +110,7 @@ export default async function ChapterPage({ params }: Props) {
                   </div>
                 )}
                 <CodeBlock code={item.exercise.solution} label="参考答案" comment={`第 ${item.number} 章练习参考实现`} />
-              </details>
+              </DefaultClosedDetails>
             )}
           </section>
         )}
