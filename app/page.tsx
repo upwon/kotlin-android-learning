@@ -14,7 +14,7 @@ export default function Home() {
           <p>为有 Java Android 经验的开发者重新组织官方知识：从常用语法、类型系统，一路深入协程状态机、Flow 与 Android 生命周期。</p>
           <div className="hero-actions">
             <Link className="primary-button large" href="/course/meet-kotlin">开始第一章 <span>→</span></Link>
-            <Link className="secondary-button large" href="/course">查看 29 章课程地图</Link>
+            <Link className="secondary-button large" href="/course">查看 50 章课程地图</Link>
           </div>
           <div className="hero-trust">
             <span><strong>{allChapters.length}</strong> 章系统课程</span>
@@ -50,14 +50,14 @@ export default function Home() {
             <h3>快速实战路线</h3>
             <p>先完成语法、常用写法、协程、Flow 和 Android 实战，尽快具备 Kotlin 项目开发能力。</p>
             <ul><li>Java → Kotlin 常用迁移</li><li>协程与 Flow 主线</li><li>完整 Android 项目</li></ul>
-            <Link href="/course">约 18 章 · 查看路线 <span>→</span></Link>
+            <Link href="/course">优先约 30 章 · 查看路线 <span>→</span></Link>
           </article>
           <article className="track-card deep">
             <div className="track-icon">⌘</div><span className="track-tag">原理进阶</span>
             <h3>系统原理路线</h3>
-            <p>按 29 章完整学习类型、泛型、内联、委托、JVM、协程状态机和工程实践。</p>
+            <p>按 50 章完整学习 Kotlin、协程、Flow、Jetpack、Compose 与生产工程。</p>
             <ul><li>语言设计与类型系统</li><li>JVM 字节码和互操作</li><li>大厂面试原理表达</li></ul>
-            <Link href="/course">完整 29 章 · 查看路线 <span>→</span></Link>
+            <Link href="/course">完整 50 章 · 查看路线 <span>→</span></Link>
           </article>
         </div>
       </section>
@@ -65,7 +65,7 @@ export default function Home() {
       <section className="curriculum-section">
         <div className="section-shell">
           <div className="section-heading light">
-            <div><span className="eyebrow">完整知识地图</span><h2>八个部分，从语法走到工程判断</h2></div>
+            <div><span className="eyebrow">完整知识地图</span><h2>十一个部分，从语法走到生产级 Android</h2></div>
             <Link className="outline-link" href="/course">打开课程地图 <span>→</span></Link>
           </div>
           <div className="unit-preview-grid">
@@ -91,7 +91,7 @@ export default function Home() {
       </section>
 
       <section className="section-shell final-cta">
-        <div><span className="eyebrow">29 章讲义已完整</span><h2>先用 32 分钟，建立正确的 Kotlin 起点。</h2><p>从第一章开始按自己的节奏学习，完成记录会自动保存在当前设备。</p></div>
+        <div><span className="eyebrow">50 章讲义已完整</span><h2>先用 32 分钟，建立正确的 Kotlin 起点。</h2><p>从第一章开始按自己的节奏学习，完成记录会自动保存在当前设备。</p></div>
         <Link className="primary-button light-button large" href="/course/meet-kotlin">进入第一章 <span>→</span></Link>
       </section>
     </main>
