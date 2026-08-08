@@ -33,6 +33,48 @@ const questions = [
     answer: 2,
     explanation: "suspend 描述可挂起能力；运行线程由协程上下文和具体挂起点决定。",
   },
+  {
+    question: "离线优先详情页中，UI 最稳定的数据事实源应该是什么？",
+    options: ["Retrofit 返回值", "Fragment 字段", "Room 查询 Flow", "一次性 SharedFlow"],
+    answer: 2,
+    explanation: "网络 refresh 应先写入 Room，再由 Room Flow 驱动 UI；断网时同一条观察链仍能显示缓存。",
+  },
+  {
+    question: "旋转后不重复执行正在进行的刷新，最关键的状态所有者是？",
+    options: ["Fragment View", "ViewModel", "remember", "BroadcastReceiver"],
+    answer: 1,
+    explanation: "同一导航目的地的 ViewModel 跨配置变化保留 Job 与 StateFlow；View 只需重新收集最新状态。",
+  },
+  {
+    question: "必须在设备重启后继续、且要等联网的同步任务，优先选择？",
+    options: ["GlobalScope", "Handler.postDelayed", "WorkManager", "LaunchedEffect"],
+    answer: 2,
+    explanation: "WorkManager 适合必须完成、带约束、可退避并能跨进程与设备重启恢复的持久任务。",
+  },
+  {
+    question: "Compose 中 remember 与 rememberSaveable 的核心区别是？",
+    options: ["前者只保存 String", "后者可借助 Saver 跨配置变化和进程重建恢复", "后者不会重组", "两者完全相同"],
+    answer: 1,
+    explanation: "remember 只保留在当前 Composition 中；rememberSaveable 会把可保存值交给 SavedStateRegistry 恢复。",
+  },
+  {
+    question: "LaunchedEffect(userId) 的 userId 改变时会发生什么？",
+    options: ["旧协程继续并再启动一个", "整个 Activity 重建", "旧协程取消，再以新 key 启动", "只更新变量，不影响协程"],
+    answer: 2,
+    explanation: "Effect 的 key 定义任务身份；key 变化会取消旧任务并启动新任务，离开 Composition 也会取消。",
+  },
+  {
+    question: "Paging 3 中 cachedIn(viewModelScope) 主要解决什么？",
+    options: ["把所有页面永久写入磁盘", "跨旋转复用同一代 PagingData", "自动处理所有 API 错误", "替代 Room"],
+    answer: 1,
+    explanation: "cachedIn 共享并缓存 ViewModel 生命周期内的分页代；离线持久缓存仍应由 Room 与 RemoteMediator 负责。",
+  },
+  {
+    question: "Compose 自适应页面中，哪项通常不应写入 ViewModel？",
+    options: ["选中的 userId", "搜索 query", "当前窗口宽度分类", "待同步收藏操作"],
+    answer: 2,
+    explanation: "窗口宽度是随分屏和折叠实时变化的派生 UI 环境；选择和业务输入才需要可恢复状态。",
+  },
 ];
 
 export function PracticeQuiz() {
@@ -99,4 +141,3 @@ export function PracticeQuiz() {
     </div>
   );
 }
-
