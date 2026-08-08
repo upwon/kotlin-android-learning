@@ -2,11 +2,18 @@
 
 import { useState } from "react";
 
-export function CodeBlock({ code, label = "Kotlin" }: { code: string; label?: string }) {
+type CodeBlockProps = {
+  code: string;
+  label?: string;
+  comment?: string;
+};
+
+export function CodeBlock({ code, label = "Kotlin", comment }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
+  const displayedCode = comment ? `// ${comment}\n${code}` : code;
 
   async function copyCode() {
-    await navigator.clipboard.writeText(code);
+    await navigator.clipboard.writeText(displayedCode);
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1400);
   }
@@ -18,7 +25,7 @@ export function CodeBlock({ code, label = "Kotlin" }: { code: string; label?: st
         <span className="code-label">{label}</span>
         <button type="button" onClick={copyCode}>{copied ? "已复制" : "复制"}</button>
       </div>
-      <pre><code>{code}</code></pre>
+      <pre><code>{displayedCode}</code></pre>
     </div>
   );
 }
@@ -28,10 +35,9 @@ export function CodeComparison({ title, java, kotlin }: { title: string; java: s
     <div className="comparison-block">
       <div className="comparison-title"><span>Java → Kotlin</span><strong>{title}</strong></div>
       <div className="comparison-grid">
-        <CodeBlock code={java} label="Java" />
-        <CodeBlock code={kotlin} label="Kotlin" />
+        <CodeBlock code={java} label="Java" comment={`${title}：Java 写法`} />
+        <CodeBlock code={kotlin} label="Kotlin" comment={`${title}：Kotlin 写法`} />
       </div>
     </div>
   );
 }
-
