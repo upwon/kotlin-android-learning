@@ -544,9 +544,9 @@ val searchResults = query
           "多个 flowOn 只影响各自上方相邻区域。catch 的位置也会决定能捕获哪些异常，因此读 Flow 链时应从 collect 向上标出上下文与错误边界。",
         ],
         kotlinCode: `repository.observeRaw()
-    .map(parser::parse)                // Default
+    .map(parser::parse)                // 在 Default 调度器执行
     .flowOn(defaultDispatcher)
-    .map(uiMapper::toRows)             // Main（收集者上下文）
+    .map(uiMapper::toRows)             // 在 Main 收集者上下文执行
     .catch { emit(emptyList()) }
     .collect(binding::render)`,
         note: "不要在 flow { } 里用 withContext 后 emit。耗时上游使用 flowOn；若只有某个转换需要切换，也可把它封装为 main-safe suspend 函数。",
