@@ -29,7 +29,12 @@ function subscribeTheme(callback: () => void) {
 }
 
 function getThemeSnapshot() {
-  const saved = window.localStorage.getItem(THEME_KEY);
+  let saved: string | null = null;
+  try {
+    saved = window.localStorage.getItem(THEME_KEY);
+  } catch {
+    // 隐私模式禁用本地存储时，仍然跟随系统主题。
+  }
   if (saved === "dark" || saved === "light") return saved;
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
@@ -42,11 +47,20 @@ export function SiteHeader() {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-  }, [theme]);
+    document.documentElement.style.colorScheme = theme;
+    document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((meta) => {
+      meta.content = dark ? "#111113" : "#f7f7f3";
+    });
+  }, [dark, theme]);
 
   function toggleTheme() {
-    const next = !dark;
-    window.localStorage.setItem(THEME_KEY, next ? "dark" : "light");
+    const nextTheme = dark ? "light" : "dark";
+    try {
+      window.localStorage.setItem(THEME_KEY, nextTheme);
+    } catch {
+      // 无法持久化时，本次页面仍可正常切换。
+    }
+    document.documentElement.dataset.theme = nextTheme;
     window.dispatchEvent(new Event(THEME_EVENT));
   }
 
@@ -76,8 +90,19 @@ export function SiteHeader() {
           <Link className="header-progress" href="/review" aria-label="查看学习进度">
             <span>{completed.length}</span> / {allChapters.length}
           </Link>
-          <button className="icon-button" type="button" onClick={toggleTheme} aria-label={dark ? "切换浅色模式" : "切换深色模式"}>
-            <span aria-hidden="true">{dark ? "☀" : "◐"}</span>
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={toggleTheme}
+            aria-label={dark ? "当前为深色模式，点击切换为浅色模式" : "当前为浅色模式，点击切换为深色模式"}
+            aria-pressed={dark}
+            title={dark ? "切换为浅色模式" : "切换为深色模式"}
+          >
+            <span className="theme-toggle-icon" aria-hidden="true">{dark ? "☾" : "☀"}</span>
+            <span className="theme-toggle-label">{dark ? "深色" : "浅色"}</span>
+            <span className="theme-toggle-track" aria-hidden="true">
+              <span className="theme-toggle-thumb" />
+            </span>
           </button>
         </div>
       </div>
