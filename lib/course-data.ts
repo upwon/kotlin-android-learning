@@ -1,4 +1,5 @@
 import { completeChapterContent } from "./complete-chapter-content";
+import { exerciseSolutions } from "./exercise-solutions";
 
 export type CodePair = {
   title: string;
@@ -33,6 +34,8 @@ export type Chapter = {
     prompt: string;
     starter?: string;
     hint: string;
+    solution?: string;
+    solutionExplanation?: string;
   };
 };
 
@@ -57,6 +60,8 @@ const chapter = (
   extras: Partial<Pick<Chapter, "status" | "sections" | "exercise">> = {},
 ): Chapter => {
   const completeContent = completeChapterContent[slug];
+  const exercise = extras.exercise ?? completeContent?.exercise;
+  const solution = exerciseSolutions[slug];
 
   return {
     number,
@@ -69,7 +74,7 @@ const chapter = (
     objectives,
     status: extras.status ?? (completeContent ? "ready" : "outline"),
     sections: extras.sections ?? completeContent?.sections,
-    exercise: extras.exercise ?? completeContent?.exercise,
+    exercise: exercise ? { ...exercise, ...solution } : undefined,
   };
 };
 
@@ -247,7 +252,7 @@ export const courseUnits: CourseUnit[] = [
               paragraphs: [
                 "默认参数让调用方只覆盖真正关心的选项；具名参数让多个 Boolean、Int 或可空参数不再依赖记忆顺序。Java 调用者需要重载时，可以在边界处使用 @JvmOverloads，而不是让所有 Kotlin API 都膨胀。",
               ],
-              kotlinCode: "fun loadUser(\n    id: Long,\n    refresh: Boolean = false,\n    showLoading: Boolean = true,\n) { /* ... */ }\n\nloadUser(id = 42L, refresh = true)",
+              kotlinCode: "fun loadUser(\n    id: Long,\n    refresh: Boolean = false,\n    showLoading: Boolean = true,\n) { /* 执行用户加载逻辑 */ }\n\nloadUser(id = 42L, refresh = true)",
             },
             {
               id: "unit",
