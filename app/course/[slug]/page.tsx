@@ -62,7 +62,7 @@ export default async function ChapterPage({ params }: Props) {
                 {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                 {section.bullets && <ul className="concept-list">{section.bullets.map((bullet) => <li key={bullet}><span>→</span>{bullet}</li>)}</ul>}
                 {section.code && <CodeComparison {...section.code} />}
-                {section.kotlinCode && <CodeBlock code={section.kotlinCode} />}
+                {section.kotlinCode && <CodeBlock code={section.kotlinCode} comment={`本节重点：${section.title}`} />}
                 {section.note && <aside className="lesson-note"><strong>注意</strong><p>{section.note}</p></aside>}
               </section>
             ))}
@@ -81,8 +81,15 @@ export default async function ChapterPage({ params }: Props) {
             <div className="exercise-label">动手练习</div>
             <h2>{item.exercise.title}</h2>
             <p>{item.exercise.prompt}</p>
-            {item.exercise.starter && <CodeBlock code={item.exercise.starter} label="待改写代码" />}
-            <details><summary>查看提示</summary><p>{item.exercise.hint}</p></details>
+            {item.exercise.starter && <CodeBlock code={item.exercise.starter} label="待改写代码" comment="先独立完成，再展开下方参考答案" />}
+            <details className="exercise-hint"><summary>查看提示</summary><p>{item.exercise.hint}</p></details>
+            {item.exercise.solution && (
+              <details className="exercise-answer">
+                <summary>查看参考答案</summary>
+                {item.exercise.solutionExplanation && <p>{item.exercise.solutionExplanation}</p>}
+                <CodeBlock code={item.exercise.solution} label="参考答案" comment={`第 ${item.number} 章练习参考实现`} />
+              </details>
+            )}
           </section>
         )}
 
@@ -106,4 +113,3 @@ export default async function ChapterPage({ params }: Props) {
     </main>
   );
 }
-
