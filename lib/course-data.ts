@@ -1,3 +1,5 @@
+import { completeChapterContent } from "./complete-chapter-content";
+
 export type CodePair = {
   title: string;
   java: string;
@@ -53,19 +55,23 @@ const chapter = (
   lessons: string[],
   objectives: string[],
   extras: Partial<Pick<Chapter, "status" | "sections" | "exercise">> = {},
-): Chapter => ({
-  number,
-  slug,
-  title,
-  summary,
-  duration,
-  level,
-  lessons,
-  objectives,
-  status: extras.status ?? "outline",
-  sections: extras.sections,
-  exercise: extras.exercise,
-});
+): Chapter => {
+  const completeContent = completeChapterContent[slug];
+
+  return {
+    number,
+    slug,
+    title,
+    summary,
+    duration,
+    level,
+    lessons,
+    objectives,
+    status: extras.status ?? (completeContent ? "ready" : "outline"),
+    sections: extras.sections ?? completeContent?.sections,
+    exercise: extras.exercise ?? completeContent?.exercise,
+  };
+};
 
 export const courseUnits: CourseUnit[] = [
   {
