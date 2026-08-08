@@ -70,7 +70,7 @@ class CachedUserSource(
         fun clear() = this@SearchController.cancelPending()
     }
 
-    private fun cancelPending() { /* ... */ }
+    private fun cancelPending() { /* 取消尚未完成的任务 */ }
 }`,
       },
       {
@@ -380,7 +380,7 @@ fun Shape.label() = "shape"
 fun Circle.label() = "circle"
 
 val shape: Shape = Circle()
-println(shape.label()) // shape`,
+println(shape.label()) // 输出：shape`,
       },
       {
         id: "scope-choice",
