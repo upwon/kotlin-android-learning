@@ -87,6 +87,27 @@ export default async function ChapterPage({ params }: Props) {
               <details className="exercise-answer">
                 <summary>查看参考答案</summary>
                 {item.exercise.solutionExplanation && <p>{item.exercise.solutionExplanation}</p>}
+                {item.exercise.solutionRoles && (
+                  <div className="solution-roles">
+                    <strong>职责图</strong>
+                    <div className="solution-roles-scroll">
+                      <table>
+                        <thead><tr><th>组件</th><th>负责</th><th>边界</th></tr></thead>
+                        <tbody>
+                          {item.exercise.solutionRoles.map((role) => (
+                            <tr key={role.component}><th>{role.component}</th><td>{role.responsibility}</td><td>{role.boundary}</td></tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+                {item.exercise.solutionChecks && (
+                  <div className="solution-checklist">
+                    <strong>本答案已覆盖</strong>
+                    <ul>{item.exercise.solutionChecks.map((check) => <li key={check}><span>✓</span>{check}</li>)}</ul>
+                  </div>
+                )}
                 <CodeBlock code={item.exercise.solution} label="参考答案" comment={`第 ${item.number} 章练习参考实现`} />
               </details>
             )}
