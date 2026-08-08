@@ -14,7 +14,7 @@ export default function Home() {
           <p>为有 Java Android 经验的开发者重新组织官方知识：从常用语法、类型系统，一路深入协程状态机、Flow 与 Android 生命周期。</p>
           <div className="hero-actions">
             <Link className="primary-button large" href="/course/meet-kotlin">开始第一章 <span>→</span></Link>
-            <Link className="secondary-button large" href="/course">查看完整课程</Link>
+            <Link className="secondary-button large" href="/course">查看 29 章课程地图</Link>
           </div>
           <div className="hero-trust">
             <span><strong>{allChapters.length}</strong> 章系统课程</span>
@@ -91,10 +91,9 @@ export default function Home() {
       </section>
 
       <section className="section-shell final-cta">
-        <div><span className="eyebrow">第一阶段 · 语言基础</span><h2>先用 32 分钟，建立正确的 Kotlin 起点。</h2><p>第一章已经可以完整学习，进度会自动保存在当前设备。</p></div>
+        <div><span className="eyebrow">29 章讲义已完整</span><h2>先用 32 分钟，建立正确的 Kotlin 起点。</h2><p>从第一章开始按自己的节奏学习，完成记录会自动保存在当前设备。</p></div>
         <Link className="primary-button light-button large" href="/course/meet-kotlin">进入第一章 <span>→</span></Link>
       </section>
     </main>
   );
 }
-
