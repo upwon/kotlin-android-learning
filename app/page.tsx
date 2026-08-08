@@ -28,7 +28,7 @@ export default function Home() {
           <div className="floating-label label-two">结构化并发 <strong>Job</strong></div>
           <div className="hero-code-card">
             <div className="code-card-top"><div><span /><span /><span /></div><small>UserViewModel.kt</small><b>K</b></div>
-            <pre><code><span className="code-purple">class</span> UserViewModel(<br />  <span className="code-blue">private val</span> repo: UserRepository<br />) : ViewModel() {'{'}<br /><br />  <span className="code-blue">val</span> uiState = repo.observeUser()<br />    .<span className="code-teal">map</span> {'{'} user -&gt;<br />      UiState.Content(user)<br />    {'}'}<br />    .<span className="code-teal">stateIn</span>(viewModelScope)<br />{'}'}</code></pre>
+            <pre><code><span className="code-teal">{"// 把数据流转换为可观察的页面状态"}</span><br /><span className="code-purple">class</span> UserViewModel(<br />  <span className="code-blue">private val</span> repo: UserRepository<br />) : ViewModel() {'{'}<br /><br />  <span className="code-blue">val</span> uiState = repo.observeUser()<br />    .<span className="code-teal">map</span> {'{'} user -&gt;<br />      UiState.Content(user)<br />    {'}'}<br />    .<span className="code-teal">stateIn</span>(viewModelScope)<br />{'}'}</code></pre>
             <div className="code-card-result"><span>✓</span><div><strong>状态由数据流驱动</strong><small>生命周期安全 · 可测试 · 可组合</small></div></div>
           </div>
           <div className="orbit orbit-one" /><div className="orbit orbit-two" />
